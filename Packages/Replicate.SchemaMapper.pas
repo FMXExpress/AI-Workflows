@@ -8,8 +8,8 @@ unit Replicate.SchemaMapper;
 // writes back into TReplicateSchemaLink.Mappings (and so into the .fmx).
 //
 // This dialog is the visual JSON->JSON mapping surface the LiveBindings
-// Designer cannot be (field->field lines are impossible; see the book,
-// chapters 5 and 7). VCL, built in code - the IDE is a VCL app; no .dfm.
+// Designer cannot be (field->field lines are impossible). VCL, built in
+// code - the IDE is a VCL app; no .dfm.
 
 interface
 

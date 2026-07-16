@@ -9,7 +9,7 @@ unit AI.Engine;
 //   * canonical input storage (InputPrompt/InputImage + named inputs + the
 //     static Inputs list) with the guard battery and change notifications
 //   * the observable recipe (CanObserve/ObserverAdded/RegisterObservableMember
-//     member names - see the book, ch. 8)
+//     member names)
 //   * output listeners (items sources, schema links) and the user events
 //   * internal face hooks reserved for node controls (single face per engine)
 //
@@ -21,7 +21,7 @@ unit AI.Engine;
 // Descendants publish NOTHING extra for the shared surface - the published
 // properties below are inherited, so form streaming and designer member names
 // are identical across engines. Register a concrete engine class's bindable
-// members with RegisterAIBindableMembers (per-class registry - ch. 5).
+// members with RegisterAIBindableMembers (per-class registry).
 
 interface
 
@@ -419,7 +419,7 @@ begin
 
   // Auto-run only on a non-empty value: a chain binding fires on the
   // upstream's empty starting/processing states too, and we must not launch
-  // prematurely. The full guard battery - see the book, ch. 12.
+  // prematurely. Hence the full guard battery below.
   if AAllowAutoRun and FAutoRun and not IsRunning and (AValue <> '') and
      not (csDesigning in ComponentState) then
     Run;

@@ -4,8 +4,8 @@ unit Replicate.Node;
 // (AI.Node.pas) that owns a TReplicateModel engine.
 //
 // Why a control? The LiveBindings Designer diagrams CONTROLS and BIND SOURCES
-// only - a plain TComponent never gets a block, whatever it registers (see
-// the book, ch. 5). As a control the node appears with its bindable members
+// only - a plain TComponent never gets a block, whatever it registers.
+// As a control the node appears with its bindable members
 // listed, and the designer supports property->property drags between two
 // controls - so
 //   NodeGen.OutputImage  ->  NodeUpscale.InputImage

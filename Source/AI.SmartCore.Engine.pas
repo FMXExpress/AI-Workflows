@@ -6,8 +6,8 @@ unit AI.SmartCore.Engine;
 // SmartCore supplies the provider transport: TAIConnection + a driver
 // (OpenAI/Claude/Gemini/Ollama) + TAIChatRequest. What it does NOT supply is
 // LiveBindings citizenship or workflow semantics - its request components are
-// plain TComponents with events (invisible to the designer; see the book,
-// ch. 5), and its own LiveBindings support (TAIChatBindSource) is a read-only
+// plain TComponents with events (invisible to the designer), and its own
+// LiveBindings support (TAIChatBindSource) is a read-only
 // transcript adapter. This engine wraps a chat request in the TAICustomEngine
 // contract, which buys it the entire workflow layer for free:
 //
