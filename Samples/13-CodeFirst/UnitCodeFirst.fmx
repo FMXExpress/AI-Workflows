@@ -1,0 +1,121 @@
+object FormCodeFirst: TFormCodeFirst
+  Left = 0
+  Top = 0
+  Caption = 'Code-First Workflow - one line per wire, no bindings'
+  ClientHeight = 680
+  ClientWidth = 1000
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  OnCreate = FormCreate
+  DesignerMasterStyle = 0
+  object lblToken: TLabel
+    Position.X = 16.000000000000000000
+    Position.Y = 16.000000000000000000
+    Text = 'Replicate token:'
+  end
+  object edtToken: TEdit
+    Password = True
+    TabOrder = 0
+    Position.X = 150.000000000000000000
+    Position.Y = 12.000000000000000000
+    Size.Width = 330.000000000000000000
+    Size.Height = 24.000000000000000000
+    Size.PlatformDefault = False
+  end
+  object lblBrief: TLabel
+    Position.X = 16.000000000000000000
+    Position.Y = 48.000000000000000000
+    Text = 'Brief:'
+  end
+  object edtBrief: TEdit
+    TabOrder = 1
+    Position.X = 150.000000000000000000
+    Position.Y = 44.000000000000000000
+    Size.Width = 470.000000000000000000
+    Size.Height = 24.000000000000000000
+    Size.PlatformDefault = False
+    Text = 'a moody cinematic poster of a lighthouse in a storm'
+  end
+  object btnRun: TButton
+    Position.X = 150.000000000000000000
+    Position.Y = 78.000000000000000000
+    Size.Width = 160.000000000000000000
+    Size.Height = 28.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 2
+    Text = 'Run Workflow'
+    OnClick = btnRunClick
+  end
+  object lblStatus: TLabel
+    Position.X = 326.000000000000000000
+    Position.Y = 84.000000000000000000
+    Size.Width = 480.000000000000000000
+    Size.Height = 17.000000000000000000
+    Size.PlatformDefault = False
+    Text = 'idle'
+  end
+  object lblPrompt: TLabel
+    Position.X = 16.000000000000000000
+    Position.Y = 120.000000000000000000
+    Text = 'gpt-oss-20b'#39's image prompt:'
+  end
+  object memPrompt: TMemo
+    Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
+    DataDetectorTypes = []
+    ReadOnly = True
+    TabOrder = 3
+    Position.X = 16.000000000000000000
+    Position.Y = 140.000000000000000000
+    Size.Width = 590.000000000000000000
+    Size.Height = 180.000000000000000000
+    Size.PlatformDefault = False
+  end
+  object lblGen: TLabel
+    Position.X = 622.000000000000000000
+    Position.Y = 120.000000000000000000
+    Text = 'Generated:'
+  end
+  object imgGen: TImage
+    MultiResBitmap = <
+      item
+      end>
+    Position.X = 622.000000000000000000
+    Position.Y = 140.000000000000000000
+    Size.Width = 360.000000000000000000
+    Size.Height = 250.000000000000000000
+    Size.PlatformDefault = False
+  end
+  object lblFinal: TLabel
+    Position.X = 622.000000000000000000
+    Position.Y = 402.000000000000000000
+    Text = 'Upscaled (final):'
+  end
+  object imgFinal: TImage
+    MultiResBitmap = <
+      item
+      end>
+    Position.X = 622.000000000000000000
+    Position.Y = 422.000000000000000000
+    Size.Width = 360.000000000000000000
+    Size.Height = 250.000000000000000000
+    Size.PlatformDefault = False
+  end
+  object ModelChat: TReplicateModel
+    Model = 'openai/gpt-oss-20b'
+    Left = 64
+    Top = 384
+  end
+  object ModelGen: TReplicateModel
+    Model = 'black-forest-labs/flux-schnell'
+    Inputs.Strings = (
+      'output_format=png')
+    Left = 176
+    Top = 384
+  end
+  object ModelUp: TReplicateModel
+    Model = 'recraft-ai/recraft-crisp-upscale'
+    Left = 288
+    Top = 384
+  end
+end

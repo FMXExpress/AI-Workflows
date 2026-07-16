@@ -1,0 +1,171 @@
+object FormWorkflow: TFormWorkflow
+  Left = 0
+  Top = 0
+  Caption = 'Replicate Workflow (designer-wired model chain)'
+  ClientHeight = 640
+  ClientWidth = 1000
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  OnCreate = FormCreate
+  DesignerMasterStyle = 0
+  object lblToken: TLabel
+    Position.X = 16.000000000000000000
+    Position.Y = 16.000000000000000000
+    Text = 'API Token:'
+  end
+  object edtToken: TEdit
+    Password = True
+    TabOrder = 0
+    Position.X = 120.000000000000000000
+    Position.Y = 12.000000000000000000
+    Size.Width = 380.000000000000000000
+    Size.Height = 24.000000000000000000
+    Size.PlatformDefault = False
+  end
+  object lblPrompt: TLabel
+    Position.X = 16.000000000000000000
+    Position.Y = 48.000000000000000000
+    Text = 'Prompt:'
+  end
+  object edtPrompt: TEdit
+    TabOrder = 1
+    Position.X = 120.000000000000000000
+    Position.Y = 44.000000000000000000
+    Size.Width = 380.000000000000000000
+    Size.Height = 24.000000000000000000
+    Size.PlatformDefault = False
+    Text = 'A crisp product photo of a red sports car on a white background'
+  end
+  object btnRun: TButton
+    Position.X = 120.000000000000000000
+    Position.Y = 78.000000000000000000
+    Size.Width = 200.000000000000000000
+    Size.Height = 30.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 2
+    Text = 'Run Workflow'
+    OnClick = btnRunClick
+  end
+  object lblGenOut: TLabel
+    Position.X = 16.000000000000000000
+    Position.Y = 124.000000000000000000
+    Text = '1) Gen OutputImage:'
+  end
+  object edtGenOut: TEdit
+    ReadOnly = True
+    TabOrder = 3
+    Position.X = 180.000000000000000000
+    Position.Y = 120.000000000000000000
+    Size.Width = 320.000000000000000000
+    Size.Height = 24.000000000000000000
+    Size.PlatformDefault = False
+  end
+  object lblUpOut: TLabel
+    Position.X = 16.000000000000000000
+    Position.Y = 154.000000000000000000
+    Text = '2) Upscale OutputImage:'
+  end
+  object edtUpOut: TEdit
+    ReadOnly = True
+    TabOrder = 4
+    Position.X = 180.000000000000000000
+    Position.Y = 150.000000000000000000
+    Size.Width = 320.000000000000000000
+    Size.Height = 24.000000000000000000
+    Size.PlatformDefault = False
+  end
+  object lblLogs: TLabel
+    Position.X = 16.000000000000000000
+    Position.Y = 184.000000000000000000
+    Text = 'Logs:'
+  end
+  object memLogs: TMemo
+    Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
+    DataDetectorTypes = []
+    TabOrder = 5
+    Position.X = 16.000000000000000000
+    Position.Y = 208.000000000000000000
+    Size.Width = 484.000000000000000000
+    Size.Height = 412.000000000000000000
+    Size.PlatformDefault = False
+  end
+  object lblGen: TLabel
+    Position.X = 516.000000000000000000
+    Position.Y = 12.000000000000000000
+    Text = 'Generated:'
+  end
+  object imgGen: TImage
+    MultiResBitmap = <
+      item
+      end>
+    Position.X = 516.000000000000000000
+    Position.Y = 32.000000000000000000
+    Size.Width = 466.000000000000000000
+    Size.Height = 288.000000000000000000
+    Size.PlatformDefault = False
+  end
+  object lblFinal: TLabel
+    Position.X = 516.000000000000000000
+    Position.Y = 328.000000000000000000
+    Text = 'Upscaled (final):'
+  end
+  object imgFinal: TImage
+    MultiResBitmap = <
+      item
+      end>
+    Position.X = 516.000000000000000000
+    Position.Y = 348.000000000000000000
+    Size.Width = 466.000000000000000000
+    Size.Height = 272.000000000000000000
+    Size.PlatformDefault = False
+  end
+  object ModelGen: TReplicateModel
+    Model = 'black-forest-labs/flux-schnell'
+    Debug = True
+    OnCompleted = GenCompleted
+    Left = 400
+    Top = 240
+  end
+  object ModelUpscale: TReplicateModel
+    Model = 'recraft-ai/recraft-crisp-upscale'
+    AutoRun = True
+    Debug = True
+    OnCompleted = UpscaleCompleted
+    Left = 400
+    Top = 300
+  end
+  object BindingsList1: TBindingsList
+    Methods = <>
+    OutputConverters = <>
+    Left = 400
+    Top = 180
+    object LinkGenOut: TBindExpression
+      Category = 'Binding Expressions'
+      ControlComponent = edtGenOut
+      SourceComponent = ModelGen
+      SourceExpression = 'OutputImage'
+      ControlExpression = 'Text'
+      NotifyOutputs = True
+      Direction = dirSourceToControl
+    end
+    object LinkUpOut: TBindExpression
+      Category = 'Binding Expressions'
+      ControlComponent = edtUpOut
+      SourceComponent = ModelUpscale
+      SourceExpression = 'OutputImage'
+      ControlExpression = 'Text'
+      NotifyOutputs = True
+      Direction = dirSourceToControl
+    end
+    object LinkChain: TBindExpression
+      Category = 'Binding Expressions'
+      ControlComponent = ModelUpscale
+      SourceComponent = ModelGen
+      SourceExpression = 'OutputImage'
+      ControlExpression = 'InputImage'
+      NotifyOutputs = True
+      Direction = dirSourceToControl
+    end
+  end
+end

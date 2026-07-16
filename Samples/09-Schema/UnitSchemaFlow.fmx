@@ -1,0 +1,192 @@
+object FormSchemaFlow: TFormSchemaFlow
+  Left = 0
+  Top = 0
+  Caption = 'Replicate Schema Workflow'
+  ClientHeight = 680
+  ClientWidth = 1000
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  OnCreate = FormCreate
+  DesignerMasterStyle = 0
+  object lblToken: TLabel
+    Position.X = 16.000000000000000000
+    Position.Y = 16.000000000000000000
+    Text = 'API Token:'
+  end
+  object edtToken: TEdit
+    Password = True
+    TabOrder = 0
+    Position.X = 120.000000000000000000
+    Position.Y = 12.000000000000000000
+    Size.Width = 380.000000000000000000
+    Size.Height = 24.000000000000000000
+    Size.PlatformDefault = False
+  end
+  object btnLoad: TButton
+    Position.X = 16.000000000000000000
+    Position.Y = 44.000000000000000000
+    Size.Width = 230.000000000000000000
+    Size.Height = 30.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 1
+    Text = 'Load Schemas && Build Form'
+    OnClick = btnLoadClick
+  end
+  object btnRun: TButton
+    Position.X = 256.000000000000000000
+    Position.Y = 44.000000000000000000
+    Size.Width = 140.000000000000000000
+    Size.Height = 30.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 2
+    Text = 'Run Workflow'
+    OnClick = btnRunClick
+  end
+  object lblInputs: TLabel
+    Position.X = 16.000000000000000000
+    Position.Y = 84.000000000000000000
+    Text = 'Inputs (built from schema):'
+  end
+  object InputPanel1: TReplicateInputPanel
+    Node = NodeGen
+    Position.X = 16.000000000000000000
+    Position.Y = 104.000000000000000000
+    Size.Width = 300.000000000000000000
+    Size.Height = 390.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 3
+  end
+  object NodeGen: TReplicateNode
+    Model = 'black-forest-labs/flux-schnell'
+    Debug = True
+    OnCompleted = GenCompleted
+    Position.X = 330.000000000000000000
+    Position.Y = 104.000000000000000000
+    Size.Width = 170.000000000000000000
+    Size.Height = 64.000000000000000000
+    Size.PlatformDefault = False
+  end
+  object NodeUpscale: TReplicateNode
+    Model = 'recraft-ai/recraft-crisp-upscale'
+    AutoRun = True
+    Debug = True
+    OnCompleted = UpscaleCompleted
+    Position.X = 330.000000000000000000
+    Position.Y = 190.000000000000000000
+    Size.Width = 170.000000000000000000
+    Size.Height = 64.000000000000000000
+    Size.PlatformDefault = False
+  end
+  object SchemaLink1: TReplicateSchemaLink
+    Source = NodeGen
+    Target = NodeUpscale
+    Mappings.Strings = (
+      'image=output[0]')
+    Left = 360
+    Top = 280
+  end
+  object OutputItems1: TReplicateOutputItemsSource
+    Node = NodeGen
+    Left = 360
+    Top = 340
+  end
+  object lblUpOut: TLabel
+    Position.X = 330.000000000000000000
+    Position.Y = 404.000000000000000000
+    Text = 'Upscale OutputImage (bound):'
+  end
+  object edtUpOut: TEdit
+    ReadOnly = True
+    TabOrder = 4
+    Position.X = 330.000000000000000000
+    Position.Y = 424.000000000000000000
+    Size.Width = 170.000000000000000000
+    Size.Height = 24.000000000000000000
+    Size.PlatformDefault = False
+  end
+  object lblLogs: TLabel
+    Position.X = 16.000000000000000000
+    Position.Y = 504.000000000000000000
+    Text = 'Logs:'
+  end
+  object memLogs: TMemo
+    Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
+    DataDetectorTypes = []
+    TabOrder = 5
+    Position.X = 16.000000000000000000
+    Position.Y = 524.000000000000000000
+    Size.Width = 484.000000000000000000
+    Size.Height = 140.000000000000000000
+    Size.PlatformDefault = False
+  end
+  object lblItems: TLabel
+    Position.X = 516.000000000000000000
+    Position.Y = 12.000000000000000000
+    Text = 'Output items (bound grid):'
+  end
+  object gridOutputs: TStringGrid
+    CanFocus = True
+    ClipChildren = True
+    Position.X = 516.000000000000000000
+    Position.Y = 32.000000000000000000
+    Size.Width = 466.000000000000000000
+    Size.Height = 180.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 6
+    RowCount = 0
+    Viewport.Width = 462.000000000000000000
+    Viewport.Height = 155.000000000000000000
+  end
+  object lblGen: TLabel
+    Position.X = 516.000000000000000000
+    Position.Y = 220.000000000000000000
+    Text = 'Generated:'
+  end
+  object imgGen: TImage
+    MultiResBitmap = <
+      item
+      end>
+    Position.X = 516.000000000000000000
+    Position.Y = 240.000000000000000000
+    Size.Width = 466.000000000000000000
+    Size.Height = 200.000000000000000000
+    Size.PlatformDefault = False
+  end
+  object lblFinal: TLabel
+    Position.X = 516.000000000000000000
+    Position.Y = 448.000000000000000000
+    Text = 'Upscaled (final):'
+  end
+  object imgFinal: TImage
+    MultiResBitmap = <
+      item
+      end>
+    Position.X = 516.000000000000000000
+    Position.Y = 468.000000000000000000
+    Size.Width = 466.000000000000000000
+    Size.Height = 196.000000000000000000
+    Size.PlatformDefault = False
+  end
+  object BindingsList1: TBindingsList
+    Methods = <>
+    OutputConverters = <>
+    Left = 360
+    Top = 400
+    object LinkUpOut: TBindExpression
+      Category = 'Binding Expressions'
+      ControlComponent = edtUpOut
+      SourceComponent = NodeUpscale
+      SourceExpression = 'OutputImage'
+      ControlExpression = 'Text'
+      NotifyOutputs = True
+      Direction = dirSourceToControl
+    end
+    object LinkGridItems: TLinkGridToDataSource
+      Category = 'Quick Bindings'
+      DataSource = OutputItems1
+      GridControl = gridOutputs
+      Columns = <>
+    end
+  end
+end

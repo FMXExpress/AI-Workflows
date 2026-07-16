@@ -1,0 +1,52 @@
+package LiveReplicate;
+
+{$R *.res}
+{$IFDEF IMPLICITBUILDING This IFDEF should not be used by users}
+{$ALIGN 8}
+{$ASSERTIONS ON}
+{$BOOLEVAL OFF}
+{$DEBUGINFO OFF}
+{$EXTENDEDSYNTAX ON}
+{$IMPORTEDDATA ON}
+{$IOCHECKS ON}
+{$LOCALSYMBOLS ON}
+{$LONGSTRINGS ON}
+{$OPENSTRINGS ON}
+{$OPTIMIZATION OFF}
+{$OVERFLOWCHECKS ON}
+{$RANGECHECKS ON}
+{$REFERENCEINFO ON}
+{$SAFEDIVIDE OFF}
+{$STACKFRAMES ON}
+{$TYPEDADDRESS OFF}
+{$VARSTRINGCHECKS ON}
+{$WRITEABLECONST OFF}
+{$MINENUMSIZE 1}
+{$IMAGEBASE $400000}
+{$DEFINE DEBUG}
+{$ENDIF IMPLICITBUILDING}
+{$IMPLICITBUILD ON}
+
+requires
+  rtl,
+  fmx,
+  bindengine,
+  bindcomp,
+  dbrtl,
+  FireDAC,
+  FireDACCommon,
+  FireDACCommonDriver;
+
+contains
+  AI.Engine in '..\Source\AI.Engine.pas',
+  AI.Node in '..\Source\AI.Node.pas',
+  Replicate.BindSource in '..\Source\Replicate.BindSource.pas',
+  Replicate.DataBindSource in '..\Source\Replicate.DataBindSource.pas',
+  Replicate.Model in '..\Source\Replicate.Model.pas',
+  Replicate.Node in '..\Source\Replicate.Node.pas',
+  Replicate.InputPanel in '..\Source\Replicate.InputPanel.pas',
+  Replicate.OutputItemsSource in '..\Source\Replicate.OutputItemsSource.pas',
+  Replicate.SchemaLink in '..\Source\Replicate.SchemaLink.pas',
+  Replicate.Relay in '..\Source\Replicate.Relay.pas';
+
+end.

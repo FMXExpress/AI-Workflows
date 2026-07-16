@@ -1,0 +1,163 @@
+object FormMain: TFormMain
+  Left = 0
+  Top = 0
+  Caption = 'LiveReplicate Dynamic Demo'
+  ClientHeight = 600
+  ClientWidth = 852
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  OnCreate = FormCreate
+  OnShow = FormShow
+  DesignerMasterStyle = 0
+  object pnlTop: TPanel
+    Align = Top
+    Size.Width = 852.000000000000000000
+    Size.Height = 81.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 0
+    object lblApiToken: TLabel
+      Position.X = 16.000000000000000000
+      Position.Y = 16.000000000000000000
+      Text = 'Replicate API Token:'
+    end
+    object edtApiToken: TEdit
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
+      TabOrder = 0
+      Text = ''
+      Position.X = 152.000000000000000000
+      Position.Y = 12.000000000000000000
+      Size.Width = 360.000000000000000000
+      Size.Height = 22.000000000000000000
+      Size.PlatformDefault = False
+    end
+    object lblModel: TLabel
+      Position.X = 16.000000000000000000
+      Position.Y = 48.000000000000000000
+      Text = 'Replicate Model:'
+    end
+    object edtModel: TEdit
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
+      TabOrder = 1
+      Position.X = 152.000000000000000000
+      Position.Y = 44.000000000000000000
+      Size.Width = 360.000000000000000000
+      Size.Height = 22.000000000000000000
+      Size.PlatformDefault = False
+    end
+    object btnLoadSchema: TButton
+      Position.X = 528.000000000000000000
+      Position.Y = 12.000000000000000000
+      Size.Width = 145.000000000000000000
+      Size.Height = 25.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 2
+      Text = 'Load Model Schema'
+      TextSettings.Trimming = None
+      OnClick = btnLoadSchemaClick
+    end
+    object btnRun: TButton
+      Position.X = 528.000000000000000000
+      Position.Y = 43.000000000000000000
+      Size.Width = 145.000000000000000000
+      Size.Height = 25.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 3
+      Text = 'Generate / Run'
+      TextSettings.Trimming = None
+      OnClick = btnRunClick
+    end
+  end
+  object lytMain: TLayout
+    Align = Client
+    Size.Width = 852.000000000000000000
+    Size.Height = 519.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 1
+    object pnlLeft: TPanel
+      Align = Left
+      Size.Width = 350.000000000000000000
+      Size.Height = 519.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 0
+      object lblPrompt: TLabel
+        Position.X = 16.000000000000000000
+        Position.Y = 16.000000000000000000
+        Text = 'Prompt (Input.prompt):'
+      end
+      object memPrompt: TMemo
+        Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
+        DataDetectorTypes = []
+        Position.X = 16.000000000000000000
+        Position.Y = 40.000000000000000000
+        Size.Width = 313.000000000000000000
+        Size.Height = 120.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 0
+        Viewport.Width = 309.000000000000000000
+        Viewport.Height = 116.000000000000000000
+      end
+      object lblLogs: TLabel
+        Position.X = 16.000000000000000000
+        Position.Y = 176.000000000000000000
+        Text = 'Replicate Logs:'
+      end
+      object memLogs: TMemo
+        Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
+        DataDetectorTypes = []
+        Position.X = 16.000000000000000000
+        Position.Y = 200.000000000000000000
+        Size.Width = 313.000000000000000000
+        Size.Height = 300.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 1
+        Viewport.Width = 309.000000000000000000
+        Viewport.Height = 296.000000000000000000
+      end
+    end
+    object pnlRight: TPanel
+      Align = Client
+      Size.Width = 502.000000000000000000
+      Size.Height = 519.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 1
+      object imgOutput: TImage
+        MultiResBitmap = <
+          item
+          end
+          item
+            Scale = 1.250000000000000000
+          end>
+        Align = Client
+        Size.Width = 502.000000000000000000
+        Size.Height = 501.000000000000000000
+        Size.PlatformDefault = False
+      end
+      object lblStatus: TLabel
+        Align = Top
+        Size.Width = 502.000000000000000000
+        Size.Height = 18.000000000000000000
+        Size.PlatformDefault = False
+        TextSettings.Font.StyleExt = {00070000000000000004000000}
+        Text = 'Status: Idle'
+      end
+    end
+  end
+  object ReplicateSource: TReplicateBindSource
+    Left = 400
+    Top = 100
+  end
+  object BindingsList1: TBindingsList
+    Methods = <>
+    OutputConverters = <>
+    Left = 400
+    Top = 160
+    object LinkControlToField1: TLinkControlToField
+      Category = 'Quick Bindings'
+      DataSource = ReplicateSource
+      FieldName = 'Output.image'
+      Control = imgOutput
+      Track = False
+    end
+  end
+end

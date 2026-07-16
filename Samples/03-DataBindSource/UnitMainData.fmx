@@ -1,0 +1,12 @@
+object FormMainData: TFormMainData
+  Left = 0
+  Top = 0
+  Caption = 'LiveReplicate Data Demo'
+  ClientHeight = 620
+  ClientWidth = 900
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  OnCreate = FormCreate
+  DesignerMasterStyle = 0
+end

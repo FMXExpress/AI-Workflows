@@ -1,0 +1,50 @@
+package LiveAISmartCore;
+
+{$R *.res}
+{$IFDEF IMPLICITBUILDING This IFDEF should not be used by users}
+{$ALIGN 8}
+{$ASSERTIONS ON}
+{$BOOLEVAL OFF}
+{$DEBUGINFO OFF}
+{$EXTENDEDSYNTAX ON}
+{$IMPORTEDDATA ON}
+{$IOCHECKS ON}
+{$LOCALSYMBOLS ON}
+{$LONGSTRINGS ON}
+{$OPENSTRINGS ON}
+{$OPTIMIZATION OFF}
+{$OVERFLOWCHECKS ON}
+{$RANGECHECKS ON}
+{$REFERENCEINFO ON}
+{$SAFEDIVIDE OFF}
+{$STACKFRAMES ON}
+{$TYPEDADDRESS OFF}
+{$VARSTRINGCHECKS ON}
+{$WRITEABLECONST OFF}
+{$MINENUMSIZE 1}
+{$IMAGEBASE $400000}
+{$DEFINE DEBUG}
+{$ENDIF IMPLICITBUILDING}
+{$IMPLICITBUILD ON}
+
+// OPTIONAL package: requires Embarcadero's SmartCore AI Component Pack
+// (RAD Studio 13+, install from GetIt first). If the SmartCoreAI package name
+// below does not match your install, check Component > Install Packages for
+// the exact name of the SmartCore runtime package and adjust the requires.
+
+requires
+  rtl,
+  bindengine,
+  bindcomp,
+  dbrtl,
+  FireDAC,
+  FireDACCommon,
+  FireDACCommonDriver,
+  LiveReplicate,
+  SmartCoreAI;
+
+contains
+  AI.SmartCore.Engine in '..\Source\AI.SmartCore.Engine.pas',
+  AI.SmartCore.ClaudeEx in '..\Source\AI.SmartCore.ClaudeEx.pas';
+
+end.

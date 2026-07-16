@@ -1,0 +1,202 @@
+object FormChainDemo: TFormChainDemo
+  Left = 0
+  Top = 0
+  Caption = 'Replicate Workflow (designer-wired chain)'
+  ClientHeight = 640
+  ClientWidth = 1000
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  OnCreate = FormCreate
+  DesignerMasterStyle = 0
+  object lblToken: TLabel
+    Position.X = 16.000000000000000000
+    Position.Y = 16.000000000000000000
+    Text = 'API Token:'
+  end
+  object edtToken: TEdit
+    Password = True
+    TabOrder = 0
+    Position.X = 120.000000000000000000
+    Position.Y = 12.000000000000000000
+    Size.Width = 380.000000000000000000
+    Size.Height = 24.000000000000000000
+    Size.PlatformDefault = False
+  end
+  object lblPrompt: TLabel
+    Position.X = 16.000000000000000000
+    Position.Y = 48.000000000000000000
+    Text = 'Prompt:'
+  end
+  object edtPrompt: TEdit
+    TabOrder = 1
+    Position.X = 120.000000000000000000
+    Position.Y = 44.000000000000000000
+    Size.Width = 380.000000000000000000
+    Size.Height = 24.000000000000000000
+    Size.PlatformDefault = False
+  end
+  object btnRun: TButton
+    Position.X = 120.000000000000000000
+    Position.Y = 78.000000000000000000
+    Size.Width = 200.000000000000000000
+    Size.Height = 30.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 2
+    Text = 'Run Workflow'
+    OnClick = btnRunClick
+  end
+  object lblNexus: TLabel
+    Position.X = 340.000000000000000000
+    Position.Y = 84.000000000000000000
+    Text = 'Nexus (relay):'
+  end
+  object edtNexus: TEdit
+    ReadOnly = True
+    TabOrder = 6
+    Position.X = 430.000000000000000000
+    Position.Y = 80.000000000000000000
+    Size.Width = 70.000000000000000000
+    Size.Height = 24.000000000000000000
+    Size.PlatformDefault = False
+  end
+  object lblGenStatus: TLabel
+    Position.X = 16.000000000000000000
+    Position.Y = 124.000000000000000000
+    Text = '1) Generate:'
+  end
+  object edtGenStatus: TEdit
+    ReadOnly = True
+    TabOrder = 3
+    Position.X = 150.000000000000000000
+    Position.Y = 120.000000000000000000
+    Size.Width = 350.000000000000000000
+    Size.Height = 24.000000000000000000
+    Size.PlatformDefault = False
+  end
+  object lblUpStatus: TLabel
+    Position.X = 16.000000000000000000
+    Position.Y = 154.000000000000000000
+    Text = '2) Upscale:'
+  end
+  object edtUpStatus: TEdit
+    ReadOnly = True
+    TabOrder = 4
+    Position.X = 150.000000000000000000
+    Position.Y = 150.000000000000000000
+    Size.Width = 350.000000000000000000
+    Size.Height = 24.000000000000000000
+    Size.PlatformDefault = False
+  end
+  object lblLogs: TLabel
+    Position.X = 16.000000000000000000
+    Position.Y = 184.000000000000000000
+    Text = 'Logs:'
+  end
+  object memLogs: TMemo
+    Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
+    DataDetectorTypes = []
+    TabOrder = 5
+    Position.X = 16.000000000000000000
+    Position.Y = 208.000000000000000000
+    Size.Width = 484.000000000000000000
+    Size.Height = 412.000000000000000000
+    Size.PlatformDefault = False
+  end
+  object lblGen: TLabel
+    Position.X = 516.000000000000000000
+    Position.Y = 12.000000000000000000
+    Text = 'Generated:'
+  end
+  object imgGen: TImage
+    MultiResBitmap = <
+      item
+      end>
+    Position.X = 516.000000000000000000
+    Position.Y = 32.000000000000000000
+    Size.Width = 466.000000000000000000
+    Size.Height = 288.000000000000000000
+    Size.PlatformDefault = False
+  end
+  object lblFinal: TLabel
+    Position.X = 516.000000000000000000
+    Position.Y = 328.000000000000000000
+    Text = 'Upscaled (final):'
+  end
+  object imgFinal: TImage
+    MultiResBitmap = <
+      item
+      end>
+    Position.X = 516.000000000000000000
+    Position.Y = 348.000000000000000000
+    Size.Width = 466.000000000000000000
+    Size.Height = 272.000000000000000000
+    Size.PlatformDefault = False
+  end
+  object ReplicateGen: TReplicateDataBindSource
+    Model = 'black-forest-labs/flux-schnell'
+    Left = 400
+    Top = 240
+  end
+  object ReplicateUpscale: TReplicateDataBindSource
+    Model = 'recraft-ai/recraft-crisp-upscale'
+    AutoRun = True
+    Left = 400
+    Top = 300
+  end
+  object BindingsList1: TBindingsList
+    Methods = <>
+    OutputConverters = <>
+    Left = 400
+    Top = 180
+    object LinkPrompt: TLinkControlToField
+      Category = 'Quick Bindings'
+      DataSource = ReplicateGen
+      FieldName = 'Input_prompt'
+      Control = edtPrompt
+      Track = True
+    end
+    object LinkGenStatus: TLinkControlToField
+      Category = 'Quick Bindings'
+      DataSource = ReplicateGen
+      FieldName = 'Status'
+      Control = edtGenStatus
+      Track = False
+    end
+    object LinkGenImage: TLinkControlToField
+      Category = 'Quick Bindings'
+      DataSource = ReplicateGen
+      FieldName = 'OutputImage'
+      Control = imgGen
+      Track = False
+    end
+    object LinkUpStatus: TLinkControlToField
+      Category = 'Quick Bindings'
+      DataSource = ReplicateUpscale
+      FieldName = 'Status'
+      Control = edtUpStatus
+      Track = False
+    end
+    object LinkFinalImage: TLinkControlToField
+      Category = 'Quick Bindings'
+      DataSource = ReplicateUpscale
+      FieldName = 'OutputImage'
+      Control = imgFinal
+      Track = False
+    end
+    object LinkGenToNexus: TLinkControlToField
+      Category = 'Quick Bindings'
+      DataSource = ReplicateGen
+      FieldName = 'OutputImage'
+      Control = edtNexus
+      Track = True
+    end
+    object LinkNexusToUpscale: TLinkControlToField
+      Category = 'Quick Bindings'
+      DataSource = ReplicateUpscale
+      FieldName = 'Input_image'
+      Control = edtNexus
+      Track = True
+    end
+  end
+end

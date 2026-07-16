@@ -1,0 +1,253 @@
+object FormSmartFlow: TFormSmartFlow
+  Left = 0
+  Top = 0
+  Caption = 'SmartCore + Replicate Workflow (Claude writes the prompt)'
+  ClientHeight = 680
+  ClientWidth = 1000
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  OnCreate = FormCreate
+  DesignerMasterStyle = 0
+  object lblClaudeKey: TLabel
+    Position.X = 16.000000000000000000
+    Position.Y = 16.000000000000000000
+    Text = 'Claude API key:'
+  end
+  object edtClaudeKey: TEdit
+    Password = True
+    TabOrder = 0
+    Position.X = 130.000000000000000000
+    Position.Y = 12.000000000000000000
+    Size.Width = 250.000000000000000000
+    Size.Height = 24.000000000000000000
+    Size.PlatformDefault = False
+  end
+  object lblChatModel: TLabel
+    Position.X = 392.000000000000000000
+    Position.Y = 16.000000000000000000
+    Text = 'Model:'
+  end
+  object cmbChatModel: TComboEdit
+    TabOrder = 1
+    Position.X = 440.000000000000000000
+    Position.Y = 12.000000000000000000
+    Size.Width = 240.000000000000000000
+    Size.Height = 24.000000000000000000
+    Size.PlatformDefault = False
+    Text = 'claude-opus-4-8'
+  end
+  object btnLoadModels: TButton
+    Position.X = 690.000000000000000000
+    Position.Y = 10.000000000000000000
+    Size.Width = 100.000000000000000000
+    Size.Height = 28.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 8
+    Text = 'Load Models'
+    OnClick = btnLoadModelsClick
+  end
+  object lblReplicateToken: TLabel
+    Position.X = 16.000000000000000000
+    Position.Y = 46.000000000000000000
+    Text = 'Replicate token:'
+  end
+  object edtReplicateToken: TEdit
+    Password = True
+    TabOrder = 2
+    Position.X = 130.000000000000000000
+    Position.Y = 42.000000000000000000
+    Size.Width = 250.000000000000000000
+    Size.Height = 24.000000000000000000
+    Size.PlatformDefault = False
+  end
+  object lblBrief: TLabel
+    Position.X = 16.000000000000000000
+    Position.Y = 76.000000000000000000
+    Text = 'Brief:'
+  end
+  object edtBrief: TEdit
+    TabOrder = 3
+    Position.X = 130.000000000000000000
+    Position.Y = 72.000000000000000000
+    Size.Width = 490.000000000000000000
+    Size.Height = 24.000000000000000000
+    Size.PlatformDefault = False
+    Text = 'a moody cinematic poster of a lighthouse in a storm'
+  end
+  object btnRun: TButton
+    Position.X = 130.000000000000000000
+    Position.Y = 104.000000000000000000
+    Size.Width = 200.000000000000000000
+    Size.Height = 30.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 4
+    Text = 'Run Workflow'
+    OnClick = btnRunClick
+  end
+  object NodeChat: TAIEngineNode
+    Engine = ChatEngine
+    Position.X = 16.000000000000000000
+    Position.Y = 148.000000000000000000
+    Size.Width = 150.000000000000000000
+    Size.Height = 64.000000000000000000
+    Size.PlatformDefault = False
+  end
+  object NodeGen: TReplicateNode
+    Model = 'black-forest-labs/flux-schnell'
+    AutoRun = True
+    Debug = True
+    OnCompleted = GenCompleted
+    Position.X = 180.000000000000000000
+    Position.Y = 148.000000000000000000
+    Size.Width = 160.000000000000000000
+    Size.Height = 64.000000000000000000
+    Size.PlatformDefault = False
+  end
+  object NodeUpscale: TReplicateNode
+    Model = 'recraft-ai/recraft-crisp-upscale'
+    AutoRun = True
+    Debug = True
+    OnCompleted = UpscaleCompleted
+    Position.X = 354.000000000000000000
+    Position.Y = 148.000000000000000000
+    Size.Width = 160.000000000000000000
+    Size.Height = 64.000000000000000000
+    Size.PlatformDefault = False
+  end
+  object lblChatOut: TLabel
+    Position.X = 16.000000000000000000
+    Position.Y = 224.000000000000000000
+    Text = 'Claude'#39's prompt (bound):'
+  end
+  object edtChatOut: TEdit
+    ReadOnly = True
+    TabOrder = 5
+    Position.X = 190.000000000000000000
+    Position.Y = 220.000000000000000000
+    Size.Width = 430.000000000000000000
+    Size.Height = 24.000000000000000000
+    Size.PlatformDefault = False
+  end
+  object lblStream: TLabel
+    Position.X = 16.000000000000000000
+    Position.Y = 252.000000000000000000
+    Text = 'Streamed tokens (bound to Logs):'
+  end
+  object memStream: TMemo
+    Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
+    DataDetectorTypes = []
+    ReadOnly = True
+    TabOrder = 6
+    Position.X = 16.000000000000000000
+    Position.Y = 272.000000000000000000
+    Size.Width = 484.000000000000000000
+    Size.Height = 140.000000000000000000
+    Size.PlatformDefault = False
+  end
+  object lblLogs: TLabel
+    Position.X = 16.000000000000000000
+    Position.Y = 420.000000000000000000
+    Text = 'Logs:'
+  end
+  object memLogs: TMemo
+    Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
+    DataDetectorTypes = []
+    TabOrder = 7
+    Position.X = 16.000000000000000000
+    Position.Y = 440.000000000000000000
+    Size.Width = 484.000000000000000000
+    Size.Height = 224.000000000000000000
+    Size.PlatformDefault = False
+  end
+  object lblGen: TLabel
+    Position.X = 516.000000000000000000
+    Position.Y = 248.000000000000000000
+    Text = 'Generated:'
+  end
+  object imgGen: TImage
+    MultiResBitmap = <
+      item
+      end>
+    Position.X = 516.000000000000000000
+    Position.Y = 268.000000000000000000
+    Size.Width = 466.000000000000000000
+    Size.Height = 190.000000000000000000
+    Size.PlatformDefault = False
+  end
+  object lblFinal: TLabel
+    Position.X = 516.000000000000000000
+    Position.Y = 466.000000000000000000
+    Text = 'Upscaled (final):'
+  end
+  object imgFinal: TImage
+    MultiResBitmap = <
+      item
+      end>
+    Position.X = 516.000000000000000000
+    Position.Y = 486.000000000000000000
+    Size.Width = 466.000000000000000000
+    Size.Height = 178.000000000000000000
+    Size.PlatformDefault = False
+  end
+  object ClaudeDriver1: TAIClaudeDriverEx
+    Left = 648
+    Top = 24
+  end
+  object AIConnection1: TAIConnection
+    Driver = ClaudeDriver1
+    Left = 648
+    Top = 80
+  end
+  object ChatEngine: TSmartCoreChatEngine
+    Connection = AIConnection1
+    SystemPrompt =
+      'You are an expert image-prompt engineer. Turn the user brief in' +
+      'to ONE detailed image-generation prompt. Reply with the prompt ' +
+      'text only - no preamble, no quotes.'
+    Left = 648
+    Top = 136
+  end
+  object BindingsList1: TBindingsList
+    Methods = <>
+    OutputConverters = <>
+    Left = 720
+    Top = 80
+    object LinkChatOut: TBindExpression
+      Category = 'Binding Expressions'
+      ControlComponent = edtChatOut
+      SourceComponent = NodeChat
+      SourceExpression = 'OutputText'
+      ControlExpression = 'Text'
+      NotifyOutputs = True
+      Direction = dirSourceToControl
+    end
+    object LinkStream: TBindExpression
+      Category = 'Binding Expressions'
+      ControlComponent = memStream
+      SourceComponent = NodeChat
+      SourceExpression = 'Logs'
+      ControlExpression = 'Text'
+      NotifyOutputs = True
+      Direction = dirSourceToControl
+    end
+    object LinkChatToGen: TBindExpression
+      Category = 'Binding Expressions'
+      ControlComponent = NodeGen
+      SourceComponent = NodeChat
+      SourceExpression = 'OutputText'
+      ControlExpression = 'InputPrompt'
+      NotifyOutputs = True
+      Direction = dirSourceToControl
+    end
+    object LinkGenToUp: TBindExpression
+      Category = 'Binding Expressions'
+      ControlComponent = NodeUpscale
+      SourceComponent = NodeGen
+      SourceExpression = 'OutputImage'
+      ControlExpression = 'InputImage'
+      NotifyOutputs = True
+      Direction = dirSourceToControl
+    end
+  end
+end
