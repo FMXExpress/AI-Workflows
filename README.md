@@ -168,6 +168,11 @@ Samples/    Numbered learning path (superseded approaches under Samples/archive)
 - **Win32/Win64** project targets are configured; other FMX platforms should
   work but are untested.
 
+## Built with
+
+Originally created with [RAD Studio Kai](https://www.embarcadero.com/products/rad-studio/kai),
+Embarcadero's AI-assisted development for Delphi.
+
 ## License
 
 Released under the [MIT License](LICENSE) — © 2026 FMXExpress.
