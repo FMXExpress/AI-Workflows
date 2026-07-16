@@ -2,17 +2,17 @@ unit AI.Node;
 
 // TAICustomNode - the visual workflow-node FACE over any TAICustomEngine.
 //
-// The engine/face split (see the book, ch. 11): everything that WORKS lives
+// The engine/face split: everything that WORKS lives
 // in the engine; everything that SHOWS lives here. The node is a control, so
 // it gets a LiveBindings Designer block with draggable members - the engine
-// alone, being a TComponent, never would (ch. 5). The node:
+// alone, being a TComponent, never would. The node:
 //
 //   * delegates the full bindable surface to the engine
 //   * re-issues every output notification against ITSELF (bindings attach to
-//     the node, not the inner engine - ch. 4's delegation rule)
+//     the node, not the inner engine - the delegation rule)
 //   * paints a node box (model name + live status)
 //   * gates the engine's AutoRun through the NODE's csDesigning (an owned
-//     engine never gets the flag itself - ch. 11, trap 2)
+//     engine never gets the flag itself)
 //
 // Two wirings:
 //   TReplicateNode (Replicate.Node.pas) - owns its engine via CreateEngine.

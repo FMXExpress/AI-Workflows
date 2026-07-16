@@ -2,7 +2,7 @@ unit Replicate.Model;
 
 // TReplicateModel - the Replicate.com workflow ENGINE.
 //
-// An observable object (see the book, ch. 10): inputs and outputs are plain
+// An observable object: inputs and outputs are plain
 // published properties refreshed via TBindings.Notify, so a property->property
 // binding  ModelA.OutputImage -> ModelB.InputImage  is a normal, writable
 // LiveBindings link - the workflow edge, with no virtual-member wall.

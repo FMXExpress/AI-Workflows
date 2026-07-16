@@ -21,7 +21,7 @@ unit Replicate.Relay;
 //   * OnPass lets code transform the value in transit.
 //
 // Because the relay is a control, it gets a LiveBindings Designer block with
-// draggable members (unlike a plain TComponent - see the book, ch. 5). And
+// draggable members (unlike a plain TComponent). And
 // because it carries the full observer recipe, it can also sit on the CONTROL
 // side of a TLinkControlToField - which is the only writable path into
 // bind-source fields like TRESTRequest.Resource or a TReplicateDataBindSource

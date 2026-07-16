@@ -1,17 +1,16 @@
 # Samples
 
 Each sample is self-contained: open the `.dproj`, set `REPLICATE_API_TOKEN`
-(or paste a token into the form), run. The book under
-[`/docs/book`](../docs/book/README.md) references these throughout.
+(or paste a token into the form), run.
 
 ## The learning path
 
 | # | Sample | Component(s) | Demonstrates |
 |---|---|---|---|
-| 01 | [Console](01-Console) | `TReplicateBindSource` | The service layer with no UI and no bindings — the diagnostic harness (book ch. 15) |
+| 01 | [Console](01-Console) | `TReplicateBindSource` | The service layer with no UI and no bindings — the diagnostic harness |
 | 02 | [BindSource](02-BindSource) | `TReplicateBindSource` | The original single-model FMX demo (legacy component, kept for compatibility) |
 | 03 | [DataBindSource](03-DataBindSource) | `TReplicateDataBindSource` | Dataset-backed bind source: per-instance schema fields, designer field links, grids |
-| 06 | [ModelChain](06-ModelChain) | `TReplicateModel` | Code-wired chaining — no `.fmx` bindings, no designer; the pattern for code-first pipelines (book ch. 10) |
+| 06 | [ModelChain](06-ModelChain) | `TReplicateModel` | Code-wired chaining — no `.fmx` bindings, no designer; the pattern for code-first pipelines |
 | 08 | [Nodes](08-Nodes) | `TReplicateNode` | **The visual node workflow** — designer-drawn model→model lines with `AutoRun` cascade |
 | 09 | [Schema](09-Schema) | `TReplicateInputPanel`, `TReplicateSchemaLink`, `TReplicateOutputItemsSource` | Schema-built input form, schema mapping edge, output items grid |
 | 10 | [Relay](10-Relay) | `TReplicateRelay` | The JSON-field-picking valve: `OutputJSON → relay(output[0]) → InputImage` |
@@ -26,9 +25,8 @@ superseded approaches, preserved below.
 
 ## Archive
 
-Working demos of approaches the project outgrew — kept runnable because the
-book analyzes *why* each one lost (chapters 7 and 16), not as patterns to
-copy:
+Working demos of approaches the project outgrew — kept runnable to show
+*why* each one lost, not as patterns to copy:
 
 | # | Sample | Superseded by | The lesson |
 |---|---|---|---|
