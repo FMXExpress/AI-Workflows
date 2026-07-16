@@ -1,6 +1,6 @@
 <div align="center">
 
-# LiveBindings-Replicate
+# AI Worksflows with LiveBindings and Replicate
 
 ### Build visual AI workflows in Delphi FMX — wire [Replicate.com](https://replicate.com) models together in the LiveBindings Designer, press **Run**, and watch the chain execute.
 
